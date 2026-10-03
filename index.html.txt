@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>最新活動訊息</title>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border: 1px solid #cbd5e1;
+      background-color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+      border-color: var(--primary-color);
+    }
+
+    .events-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .event-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .event-badge {
+      align-self: flex-start;
+      padding: 4px 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border-radius: 4px;
+      margin: 15px 15px 0 15px;
+    }
+
+    .status-upcoming { background-color: #dcfce7; color: #15803d; }
+    .status-ended { background-color: #f1f5f9; color: #64748b; }
+
+    .event-content {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-title {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .event-info {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .event-desc {
+      font-size: 0.95rem;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .btn-register {
+      display: block;
+      text-align: center;
+      background-color: var(--primary-color);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-register:hover {
+      background-color: #1d4ed8;
+    }
+
+    .btn-register.disabled {
+      background-color: #cbd5e1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>近期精彩活動</h1>
+    <p>掌握最新講座、工作坊與社群聚會資訊</p>
+  </header>
+
+  <div class="filter-container">
+    <button class="filter-btn active" onclick="filterEvents('all')">全部活動</button>
+    <button class="filter-btn" onclick="filterEvents('upcoming')">即將舉辦</button>
+    <button class="filter-btn" onclick="filterEvents('ended')">已結束</button>
+  </div>
+
+  <main class="events-grid" id="eventsGrid">
+    <!-- 活動卡片會透過下方 JS 自動生成 -->
+  </main>
+
+  <script>
+    // 活動資料清單（未來新增或修改活動只需更改這裡）
+    const events = [
+      {
+        id: 1,
+        title: "AI 應用與自動化工作坊",
+        status: "upcoming",
+        date: "2026-11-15 (日) 14:00 - 17:00",
+        location: "線上 Zoom 直播",
+        description: "學習如何將 Gemini 與日常工作流程結合，提升個人與團隊的產出效率。",
+        link: "https://example.com/register/1"
+      },
+      {
+        id: 2,
+        title: "2026 前端技術交流小聚",
+        status: "upcoming",
+        date: "2026-12-05 (六) 10:00 - 16:00",
+        location: "台北市信義區展演中心 B1",
+        description: "邀請業界資深工程師分享最新網頁趨勢與實務經驗開發心法。",
+        link: "https://example.com/register/2"
+      },
+      {
+        id: 3,
+        title: "UI/UX 設計思考入門講座",
+        status: "ended",
+        date: "2026-09-20 (日) 13:30 - 15:30",
+        location: "線上直播",
+        description: "從使用者研究到介面原型設計，帶你快速踏入 UI/UX 的世界。",
+        link: "#"
+      }
+    ];
+
+    function renderEvents(filter = 'all') {
+      const container = document.getElementById('eventsGrid');
+      container.innerHTML = '';
+
+      const filteredEvents = events.filter(e => filter === 'all' || e.status === filter);
+
+      filteredEvents.forEach(e => {
+        const isUpcoming = e.status === 'upcoming';
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.innerHTML = `
+          <span class="event-badge ${isUpcoming ? 'status-upcoming' : 'status-ended'}">
+            ${isUpcoming ? '報名中' : '已結束'}
+          </span>
+          <div class="event-content">
+            <h2 class="event-title">${e.title}</h2>
+            <div class="event-info">📅 ${e.date}</div>
+            <div class="event-info">📍 ${e.location}</div>
+            <p class="event-desc">${e.description}</p>
+            <a href="${e.link}" class="btn-register ${isUpcoming ? '' : 'disabled'}" target="_blank">
+              ${isUpcoming ? '立即免費報名' : '報名已截止'}
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterEvents(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderEvents(category);
+    }
+
+    // 初始化渲染
+    renderEvents();
+  </script>
+</body>
+</html>
