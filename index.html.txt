@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>最新活動訊息</title>
+  <title>陽明海運五十四週年慶 - 台塑王氏昆仲公園健行活動</title>
   <style>
     :root {
-      --primary-color: #2563eb;
-      --bg-color: #f8fafc;
+      --primary-color: #003366;
+      --accent-color: #e60012;
+      --bg-color: #f4f6f9;
       --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
+      --text-main: #222222;
+      --text-muted: #555555;
     }
 
     * {
@@ -29,209 +30,239 @@
 
     header {
       text-align: center;
-      margin-bottom: 30px;
-      padding: 20px 0;
+      background: linear-gradient(135deg, var(--primary-color), #002244);
+      color: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
     header h1 {
-      font-size: 2.2rem;
-      color: var(--primary-color);
+      font-size: 1.8rem;
       margin-bottom: 8px;
     }
 
     header p {
-      color: var(--text-muted);
+      font-size: 1.1rem;
+      opacity: 0.9;
     }
 
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    .filter-btn {
-      padding: 8px 18px;
-      border: 1px solid #cbd5e1;
-      background-color: #fff;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background-color: var(--primary-color);
-      color: #fff;
-      border-color: var(--primary-color);
-    }
-
-    .events-grid {
-      max-width: 1100px;
+    .container {
+      max-width: 900px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .event-card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease;
+      gap: 20px;
     }
 
-    .event-card:hover {
-      transform: translateY(-5px);
+    .card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .event-badge {
-      align-self: flex-start;
-      padding: 4px 12px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border-radius: 4px;
-      margin: 15px 15px 0 15px;
-    }
-
-    .status-upcoming { background-color: #dcfce7; color: #15803d; }
-    .status-ended { background-color: #f1f5f9; color: #64748b; }
-
-    .event-content {
-      padding: 15px;
-      flex-grow: 1;
+    .card h2 {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 8px;
+      margin-bottom: 15px;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
-    .event-title {
-      font-size: 1.25rem;
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
       margin-bottom: 10px;
+      font-size: 1rem;
     }
 
-    .event-info {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+    .info-list strong {
+      color: var(--primary-color);
     }
 
-    .event-desc {
-      font-size: 0.95rem;
+    /* 表格樣式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-top: 10px;
-      margin-bottom: 20px;
-      flex-grow: 1;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f4f8;
+      color: var(--primary-color);
+    }
+
+    .notice-box {
+      background-color: #fff8e6;
+      border-left: 4px solid #ffb100;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    .notice-box ul {
+      padding-left: 20px;
     }
 
     .btn-register {
-      display: block;
+      display: inline-block;
+      width: 100%;
       text-align: center;
-      background-color: var(--primary-color);
-      color: #fff;
+      background-color: var(--accent-color);
+      color: white;
       text-decoration: none;
-      padding: 10px;
-      border-radius: 6px;
+      padding: 14px;
+      border-radius: 8px;
       font-weight: bold;
-      transition: background-color 0.2s ease;
+      font-size: 1.1rem;
+      margin-top: 15px;
+      transition: background 0.3s;
     }
 
     .btn-register:hover {
-      background-color: #1d4ed8;
-    }
-
-    .btn-register.disabled {
-      background-color: #cbd5e1;
-      pointer-events: none;
+      background-color: #cc0010;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>近期精彩活動</h1>
-    <p>掌握最新講座、工作坊與社群聚會資訊</p>
-  </header>
+  <div class="container">
+    <header>
+      <h1>陽明海運股份有限公司高雄分公司</h1>
+      <p>五十四週年慶 台塑王氏昆仲公園健行活動實施要點</p>
+    </header>
 
-  <div class="filter-container">
-    <button class="filter-btn active" onclick="filterEvents('all')">全部活動</button>
-    <button class="filter-btn" onclick="filterEvents('upcoming')">即將舉辦</button>
-    <button class="filter-btn" onclick="filterEvents('ended')">已結束</button>
+    <!-- 基本資訊 -->
+    <div class="card">
+      <h2>📌 活動基本資訊</h2>
+      <ul class="info-list">
+        <li><strong>活動日期：</strong>2026 年 11 月 7 日 (六) 上午 08:10 至 11:00</li>
+        <li><strong>活動地點：</strong>台塑王氏昆仲公園－老樹廣場（806高雄市前鎮區中山三路39號）</li>
+        <li><strong>參與對象：</strong>南區陽明海運集團岸勤、海勤及退休人員</li>
+      </ul>
+    </div>
+
+    <!-- 活動流程 -->
+    <div class="card">
+      <h2>⏰ 活動流程</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>時間</th>
+            <th>活動內容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>08:10 - 09:10</td>
+            <td>報到（台塑王氏昆仲公園－老樹廣場）</td>
+          </tr>
+          <tr>
+            <td>09:10 - 09:50</td>
+            <td>健行活動（全程約 2.5 公里，步行時間約 40 分鐘）</td>
+          </tr>
+          <tr>
+            <td>10:00 - 10:30</td>
+            <td>集合摸彩活動（老樹廣場）</td>
+          </tr>
+          <tr>
+            <td>10:30 - 11:00</td>
+            <td>退休人員現場領取獎項</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 報名方式 -->
+    <div class="card">
+      <h2>📝 報名與注意事項</h2>
+      <p>本次完全採線上報名，欲參加健行活動之同仁及退休人員，請於報名截止日期前透過活動網頁完成報名手續，後續恕不開放任何形式之補報名。</p>
+      
+      <div class="notice-box">
+        <strong>⚠️ 因公或特殊情況處理方式：</strong>
+        <ul>
+          <li><strong>因公無法出席同仁：</strong>請最遲於 2026年11月3日（二）12:00 前 Email 通知承辦人並副本直屬主管。可保留紀念品 1 份（保溫袋及環保餐具組）及抽獎資格，但不安發交通補助費。</li>
+          <li><strong>駐外/產假/海勤在船同仁：</strong>若本人無法出席，可由直系親屬（父母、子女）或配偶攜帶戶口名簿及證件代為出席。</li>
+        </ul>
+      </div>
+
+      <a href="#" class="btn-register">👉 線上報名（連結另行通知）</a>
+    </div>
+
+    <!-- 領取原則 -->
+    <div class="card">
+      <h2>🎁 紀念品、中獎獎金與交通補助費領取對照表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>狀態</th>
+            <th>條件</th>
+            <th>紀念品</th>
+            <th>中獎獎金</th>
+            <th>交通補助</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>岸勤在職 / 海勤在岸</td>
+            <td>本人出席</td>
+            <td>現場領取</td>
+            <td>併薪發放</td>
+            <td>併薪發放</td>
+          </tr>
+          <tr>
+            <td>退休人員</td>
+            <td>本人出席</td>
+            <td>現場領取</td>
+            <td>現場領取</td>
+            <td>現場領取</td>
+          </tr>
+          <tr>
+            <td>海勤在船 / 產假 / 駐外</td>
+            <td>配偶/直系親屬代出席</td>
+            <td>現場領取</td>
+            <td>併薪發放</td>
+            <td>併薪發放</td>
+          </tr>
+          <tr>
+            <td>因公未到場</td>
+            <td>事前來信通知</td>
+            <td>後續發放</td>
+            <td>併薪發放</td>
+            <td>不提供</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.85rem; color:#666; margin-top:10px;">* 事前報名且當日完成報到者，每戶可領取紀念品乙份及交通補助費 NT$300。</p>
+    </div>
+
+    <!-- 交通指引 -->
+    <div class="card">
+      <h2>🚶 交通與路線指引</h2>
+      <ul class="info-list">
+        <li><strong>捷運：</strong>紅線獅甲站 1 號出口，沿中山三路步行約 4 分鐘即可抵達。</li>
+        <li><strong>輕軌：</strong>「前鎮之星站」或「經貿園區站」下車，步行約 1.1 公里。</li>
+        <li><strong>公車：</strong>搭乘 12A、12C、25、69A 至「光華路口(中山三路)站」下車。</li>
+        <li><strong>建議健行路線：</strong>老樹廣場出發 ➔ 出大門右轉沿中山三路步道 ➔ 右轉建塑路 ➔ 右轉中華五路 ➔ 右轉正勤路返回老樹廣場（約 2.5 公里）。</li>
+      </ul>
+    </div>
+
   </div>
 
-  <main class="events-grid" id="eventsGrid">
-    <!-- 活動卡片會透過下方 JS 自動生成 -->
-  </main>
-
-  <script>
-    // 活動資料清單（未來新增或修改活動只需更改這裡）
-    const events = [
-      {
-        id: 1,
-        title: "AI 應用與自動化工作坊",
-        status: "upcoming",
-        date: "2026-11-15 (日) 14:00 - 17:00",
-        location: "線上 Zoom 直播",
-        description: "學習如何將 Gemini 與日常工作流程結合，提升個人與團隊的產出效率。",
-        link: "https://example.com/register/1"
-      },
-      {
-        id: 2,
-        title: "2026 前端技術交流小聚",
-        status: "upcoming",
-        date: "2026-12-05 (六) 10:00 - 16:00",
-        location: "台北市信義區展演中心 B1",
-        description: "邀請業界資深工程師分享最新網頁趨勢與實務經驗開發心法。",
-        link: "https://example.com/register/2"
-      },
-      {
-        id: 3,
-        title: "UI/UX 設計思考入門講座",
-        status: "ended",
-        date: "2026-09-20 (日) 13:30 - 15:30",
-        location: "線上直播",
-        description: "從使用者研究到介面原型設計，帶你快速踏入 UI/UX 的世界。",
-        link: "#"
-      }
-    ];
-
-    function renderEvents(filter = 'all') {
-      const container = document.getElementById('eventsGrid');
-      container.innerHTML = '';
-
-      const filteredEvents = events.filter(e => filter === 'all' || e.status === filter);
-
-      filteredEvents.forEach(e => {
-        const isUpcoming = e.status === 'upcoming';
-        const card = document.createElement('div');
-        card.className = 'event-card';
-        card.innerHTML = `
-          <span class="event-badge ${isUpcoming ? 'status-upcoming' : 'status-ended'}">
-            ${isUpcoming ? '報名中' : '已結束'}
-          </span>
-          <div class="event-content">
-            <h2 class="event-title">${e.title}</h2>
-            <div class="event-info">📅 ${e.date}</div>
-            <div class="event-info">📍 ${e.location}</div>
-            <p class="event-desc">${e.description}</p>
-            <a href="${e.link}" class="btn-register ${isUpcoming ? '' : 'disabled'}" target="_blank">
-              ${isUpcoming ? '立即免費報名' : '報名已截止'}
-            </a>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterEvents(category) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      renderEvents(category);
-    }
-
-    // 初始化渲染
-    renderEvents();
-  </script>
 </body>
 </html>
